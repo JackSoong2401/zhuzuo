@@ -3,7 +3,6 @@
 import { BeadSphere } from "@/components/bead-sphere"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { CATEGORIES, TEMPLATES } from "@/data/beads"
 import { formatYuan } from "@/lib/bracelet"
 import type { BraceletEditorApi } from "@/hooks/use-bracelet-editor"
@@ -27,7 +26,7 @@ export function BeadCatalog({ editor }: BeadCatalogProps) {
   } = editor
 
   return (
-    <section className="flex min-h-[240px] min-w-0 flex-1 flex-col border-t border-[#ead9bb] bg-[#fffaf1] lg:border-t-0 lg:border-l">
+    <section className="flex min-w-0 flex-1 flex-col border-t border-[#ead9bb] bg-[#fffaf1] lg:min-h-0 lg:border-t-0 lg:border-l">
       <div className="flex gap-2 overflow-x-auto px-3 pt-3 pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {TEMPLATES.map((template) => (
           <button
@@ -66,8 +65,8 @@ export function BeadCatalog({ editor }: BeadCatalogProps) {
         })}
       </div>
 
-      <ScrollArea className="min-h-0 flex-1 px-3">
-        <div className="grid grid-cols-4 gap-2 pb-3 sm:grid-cols-5 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="px-3 pb-3 lg:min-h-0 lg:flex-1 lg:overflow-y-auto">
+        <div className="grid grid-cols-4 gap-2 sm:grid-cols-5 lg:grid-cols-3 xl:grid-cols-4">
           {catalogBeads.map((bead) => {
             const isReplaceTarget = Boolean(
               selectedBead && selectedBead.id !== bead.id
@@ -101,7 +100,7 @@ export function BeadCatalog({ editor }: BeadCatalogProps) {
             )
           })}
         </div>
-      </ScrollArea>
+      </div>
 
       <div className="flex items-center gap-2 border-t border-[#ead9bb] px-3 py-2">
         <p className="min-w-0 flex-1 text-[11px] leading-4 text-[#8a704c]">

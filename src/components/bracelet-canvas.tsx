@@ -32,9 +32,11 @@ export function BraceletCanvas({ editor }: BraceletCanvasProps) {
   const [draggingUid, setDraggingUid] = useState<string | null>(null)
   const pointerRef = useRef<{
     pointerId: number
-    mode: "none" | "rotate" | "reorder"
+    mode: "pending" | "rotate" | "reorder" | "scroll"
     startX: number
     startY: number
+    startClientX: number
+    startClientY: number
     lastAngle: number
     fromIndex: number
     checkpointed: boolean
@@ -76,29 +78,40 @@ export function BraceletCanvas({ editor }: BraceletCanvasProps) {
     const { x, y } = localPoint(event)
     pointerRef.current = {
       pointerId: event.pointerId,
-      mode: uid ? "none" : "rotate",
+      mode: "pending",
       startX: x,
       startY: y,
+      startClientX: event.clientX,
+      startClientY: event.clientY,
       lastAngle: angleAt(x, y),
       fromIndex: uid ? items.findIndex((item) => item.uid === uid) : -1,
       checkpointed: false,
     }
     if (uid) setSelectedUid(uid)
     else setSelectedUid(null)
-    event.currentTarget.setPointerCapture(event.pointerId)
   }
 
   function onPointerMove(event: React.PointerEvent<HTMLDivElement>) {
     const pointer = pointerRef.current
     if (!pointer || pointer.pointerId !== event.pointerId) return
+    if (pointer.mode === "scroll") return
     const { x, y } = localPoint(event)
-    const dx = x - pointer.startX
-    const dy = y - pointer.startY
-    const dist = Math.hypot(dx, dy)
 
-    if (pointer.mode === "none" && pointer.fromIndex >= 0 && dist > 10) {
-      pointer.mode = "reorder"
-      setDraggingUid(items[pointer.fromIndex]?.uid ?? null)
+    if (pointer.mode === "pending") {
+      const clientDx = event.clientX - pointer.startClientX
+      const clientDy = event.clientY - pointer.startClientY
+      const dist = Math.hypot(clientDx, clientDy)
+      if (dist < 12) return
+      // Vertical swipe should scroll the page, not spin the bracelet.
+      if (Math.abs(clientDy) > Math.abs(clientDx) * 1.15) {
+        pointer.mode = "scroll"
+        return
+      }
+      pointer.mode = pointer.fromIndex >= 0 ? "reorder" : "rotate"
+      if (pointer.mode === "reorder") {
+        setDraggingUid(items[pointer.fromIndex]?.uid ?? null)
+      }
+      event.currentTarget.setPointerCapture(event.pointerId)
     }
 
     if (pointer.mode === "rotate") {
@@ -149,13 +162,13 @@ export function BraceletCanvas({ editor }: BraceletCanvasProps) {
     <div className="relative flex min-h-0 flex-col items-center justify-center px-3 py-1 lg:flex-1 lg:py-2">
       <div
         ref={rootRef}
-        className="bracelet-stage relative aspect-square w-[min(100%,38dvh,340px)] touch-none select-none lg:w-[min(100%,52dvh,420px)]"
+        className="bracelet-stage relative aspect-square w-[min(100%,38dvh,340px)] touch-pan-y select-none lg:w-[min(100%,52dvh,420px)]"
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
         role="application"
-        aria-label="手串预览，单指滑动旋转，拖动珠子可换位"
+        aria-label="手串预览，左右滑动旋转，上下滑动查看珠盘，拖动珠子可换位"
       >
         <svg
           viewBox={`0 0 ${size} ${size}`}
@@ -226,7 +239,7 @@ export function BraceletCanvas({ editor }: BraceletCanvasProps) {
               key={entry.item.uid}
               type="button"
               data-bead-uid={entry.item.uid}
-              className="absolute -translate-x-1/2 -translate-y-1/2 touch-none rounded-full"
+              className="absolute -translate-x-1/2 -translate-y-1/2 touch-pan-y rounded-full"
               style={{
                 left: `${(entry.x / size) * 100}%`,
                 top: `${(entry.y / size) * 100}%`,

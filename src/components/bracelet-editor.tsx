@@ -42,7 +42,7 @@ export function BraceletEditor() {
   }
 
   return (
-    <div className="mx-auto flex h-dvh w-full max-w-6xl flex-col overflow-hidden bg-[#f6edd9]">
+    <div className="mx-auto flex min-h-dvh w-full max-w-6xl flex-col overflow-x-hidden bg-[#f6edd9] lg:h-dvh lg:overflow-hidden">
       <header className="flex items-center justify-between gap-3 px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-2">
         <div>
           <p className="text-[11px] tracking-[0.18em] text-[#8a704c]">ZHUZUO</p>
@@ -66,8 +66,8 @@ export function BraceletEditor() {
         <Stat label="小计" value={formatYuan(quote.total)} />
       </div>
 
-      <div className="flex min-h-0 flex-1 flex-col lg:grid lg:grid-cols-[1.15fr_0.95fr] lg:overflow-hidden">
-        <div className="flex min-h-0 shrink-0 flex-col lg:min-h-0 lg:flex-1">
+      <div className="flex flex-1 flex-col lg:min-h-0 lg:grid lg:grid-cols-[1.15fr_0.95fr] lg:overflow-hidden">
+        <div className="flex shrink-0 flex-col lg:min-h-0 lg:flex-1">
           <BraceletCanvas editor={editor} />
 
           <div className="flex flex-wrap justify-center gap-1.5 px-3 pb-2">
