@@ -1,0 +1,243 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-serif), var(--font-sans), serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: oklch(0.945 0.02 85);
+  --foreground: oklch(0.24 0.03 52);
+  --card: oklch(0.985 0.012 88);
+  --card-foreground: oklch(0.24 0.03 52);
+  --popover: oklch(0.985 0.012 88);
+  --popover-foreground: oklch(0.24 0.03 52);
+  --primary: oklch(0.32 0.04 50);
+  --primary-foreground: oklch(0.98 0.012 88);
+  --secondary: oklch(0.94 0.02 82);
+  --secondary-foreground: oklch(0.28 0.03 52);
+  --muted: oklch(0.93 0.018 82);
+  --muted-foreground: oklch(0.5 0.03 62);
+  --accent: oklch(0.93 0.03 78);
+  --accent-foreground: oklch(0.28 0.04 52);
+  --destructive: oklch(0.52 0.14 28);
+  --border: oklch(0.88 0.03 80);
+  --input: oklch(0.88 0.03 80);
+  --ring: oklch(0.58 0.08 70);
+  --chart-1: oklch(0.72 0.1 75);
+  --chart-2: oklch(0.55 0.08 50);
+  --chart-3: oklch(0.45 0.05 50);
+  --chart-4: oklch(0.38 0.04 50);
+  --chart-5: oklch(0.28 0.03 50);
+  --radius: 0.9rem;
+  --sidebar: oklch(0.97 0.015 88);
+  --sidebar-foreground: oklch(0.24 0.03 52);
+  --sidebar-primary: oklch(0.32 0.04 50);
+  --sidebar-primary-foreground: oklch(0.98 0.012 88);
+  --sidebar-accent: oklch(0.94 0.02 82);
+  --sidebar-accent-foreground: oklch(0.28 0.03 52);
+  --sidebar-border: oklch(0.88 0.03 80);
+  --sidebar-ring: oklch(0.58 0.08 70);
+}
+
+.dark {
+  --background: oklch(0.2 0.02 55);
+  --foreground: oklch(0.96 0.015 85);
+  --card: oklch(0.26 0.02 55);
+  --card-foreground: oklch(0.96 0.015 85);
+  --popover: oklch(0.26 0.02 55);
+  --popover-foreground: oklch(0.96 0.015 85);
+  --primary: oklch(0.9 0.04 80);
+  --primary-foreground: oklch(0.22 0.03 50);
+  --secondary: oklch(0.3 0.02 55);
+  --secondary-foreground: oklch(0.96 0.015 85);
+  --muted: oklch(0.3 0.02 55);
+  --muted-foreground: oklch(0.72 0.03 75);
+  --accent: oklch(0.32 0.03 60);
+  --accent-foreground: oklch(0.96 0.015 85);
+  --destructive: oklch(0.7 0.14 28);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.7 0.06 75);
+  --chart-1: oklch(0.72 0.1 75);
+  --chart-2: oklch(0.55 0.08 50);
+  --chart-3: oklch(0.45 0.05 50);
+  --chart-4: oklch(0.38 0.04 50);
+  --chart-5: oklch(0.28 0.03 50);
+  --sidebar: oklch(0.26 0.02 55);
+  --sidebar-foreground: oklch(0.96 0.015 85);
+  --sidebar-primary: oklch(0.78 0.08 75);
+  --sidebar-primary-foreground: oklch(0.22 0.03 50);
+  --sidebar-accent: oklch(0.3 0.02 55);
+  --sidebar-accent-foreground: oklch(0.96 0.015 85);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.58 0.06 70);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(ellipse at 18% -10%, rgba(196, 163, 90, 0.18), transparent 46%),
+      radial-gradient(ellipse at 90% 110%, rgba(139, 58, 42, 0.08), transparent 42%);
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.bead-sphere {
+  position: relative;
+  display: inline-block;
+  border-radius: 50%;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow:
+    inset -12% -14% 16% rgba(40, 16, 4, 0.38),
+    inset 14% 12% 14% rgba(255, 255, 255, 0.28),
+    1px 3px 7px rgba(40, 20, 0, 0.28);
+}
+
+.bead-core,
+.bead-overlay,
+.bead-light {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+
+.bead-overlay {
+  mix-blend-mode: overlay;
+  opacity: 0.85;
+}
+
+.bead-light {
+  background: radial-gradient(
+    circle at 30% 24%,
+    rgba(255, 255, 255, 0.72) 0%,
+    rgba(255, 255, 255, 0.18) 28%,
+    transparent 46%
+  );
+  pointer-events: none;
+}
+
+.bead-sheen-wood {
+  box-shadow:
+    inset -10% -12% 12% rgba(20, 8, 0, 0.45),
+    inset 10% 10% 10% rgba(255, 220, 180, 0.12),
+    1px 3px 6px rgba(40, 20, 0, 0.3);
+}
+
+.bead-sheen-wood .bead-light {
+  opacity: 0.35;
+}
+
+.bead-sheen-metal {
+  box-shadow:
+    inset -10% -12% 10% rgba(80, 40, 0, 0.35),
+    inset 16% 10% 12% rgba(255, 255, 255, 0.5),
+    1px 3px 8px rgba(80, 50, 0, 0.28);
+}
+
+.bead-sheen-pearl .bead-light {
+  background: radial-gradient(
+    circle at 28% 22%,
+    rgba(255, 255, 255, 0.85) 0%,
+    rgba(210, 230, 255, 0.28) 32%,
+    transparent 52%
+  );
+}
+
+.bead-sheen-amber {
+  box-shadow:
+    inset -10% -12% 14% rgba(90, 30, 0, 0.28),
+    inset 12% 10% 16% rgba(255, 240, 180, 0.35),
+    0 0 10px rgba(240, 160, 40, 0.18),
+    1px 3px 7px rgba(40, 20, 0, 0.24);
+}
+
+.bead-sheen-crystal .bead-light {
+  background:
+    radial-gradient(
+      circle at 30% 22%,
+      rgba(255, 255, 255, 0.8) 0%,
+      transparent 40%
+    ),
+    linear-gradient(
+      125deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.28) 50%,
+      transparent 62%
+    );
+}
+
+.bead-selected {
+  box-shadow:
+    inset -12% -14% 16% rgba(40, 16, 4, 0.38),
+    inset 14% 12% 14% rgba(255, 255, 255, 0.28),
+    0 0 0 3px #fff8e8,
+    0 0 0 6px #c4a35a;
+}
+
+.bead-interactive {
+  pointer-events: none;
+}
+
+.bracelet-stage {
+  cursor: grab;
+}
+
+.bracelet-stage:active {
+  cursor: grabbing;
+}
